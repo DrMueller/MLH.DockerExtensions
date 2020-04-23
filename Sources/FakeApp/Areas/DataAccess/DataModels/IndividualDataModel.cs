@@ -1,7 +1,9 @@
 ﻿using System;
+using JetBrains.Annotations;
 
 namespace Mmu.Mlh.DockerExtensions.FakeApp.Areas.DataAccess.DataModels
 {
+    [PublicAPI]
     public class IndividualDataModel
     {
         public DateTime Birthdate { get; set; }

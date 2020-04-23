@@ -1,8 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using JetBrains.Annotations;
+using Microsoft.EntityFrameworkCore;
 using Mmu.Mlh.DockerExtensions.FakeApp.Areas.DataAccess.DataModels;
 
 namespace Mmu.Mlh.DockerExtensions.FakeApp.Areas.DataAccess.DbContexts
 {
+    [PublicAPI]
     public class AppDbContext : DbContext
     {
         public AppDbContext(DbContextOptions<AppDbContext> options)
