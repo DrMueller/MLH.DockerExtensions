@@ -12,6 +12,7 @@ namespace Mmu.Mlh.DockerExtensions.TestConsole.Infrastructure.DependencyInjectio
                 {
                     scanner.AssemblyContainingType<TestConsoleRegistry>();
                     scanner.AddAllTypesOf<IConsoleCommand>();
+                    scanner.WithDefaultConventions();
                 });
         }
     }

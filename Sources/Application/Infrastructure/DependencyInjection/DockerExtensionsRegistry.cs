@@ -1,7 +1,10 @@
-﻿using Mmu.Mlh.DockerExtensions.Areas.Containers.Services;
-using Mmu.Mlh.DockerExtensions.Areas.Containers.Services.Adapters;
-using Mmu.Mlh.DockerExtensions.Areas.Containers.Services.Adapters.Implementation;
-using Mmu.Mlh.DockerExtensions.Areas.Containers.Services.Implementation;
+﻿using Mmu.Mlh.DockerExtensions.Areas.Containers.Contexts.Factories;
+using Mmu.Mlh.DockerExtensions.Areas.Containers.Contexts.Factories.Implementation;
+using Mmu.Mlh.DockerExtensions.Areas.Containers.Contexts.Models.Implementation;
+using Mmu.Mlh.DockerExtensions.Areas.Containers.Managemnet.Services;
+using Mmu.Mlh.DockerExtensions.Areas.Containers.Managemnet.Services.Implementation;
+using Mmu.Mlh.DockerExtensions.Areas.Containers.Managemnet.Services.Servants;
+using Mmu.Mlh.DockerExtensions.Areas.Containers.Managemnet.Services.Servants.Implementation;
 using StructureMap;
 
 namespace Mmu.Mlh.DockerExtensions.Infrastructure.DependencyInjection
@@ -10,9 +13,15 @@ namespace Mmu.Mlh.DockerExtensions.Infrastructure.DependencyInjection
     {
         public DockerExtensionsRegistry()
         {
+            For<IDockerizedContextFactory>().Use<DockerizedContextFactory>().Singleton();
             For<IContainerStarter>().Use<ContainerStarter>().Singleton();
-            For<IContainerStopper>().Use<ContainerStopper>().Singleton();
+            For<IContainerRemover>().Use<ContainerRemover>().Singleton();
             For<IDockerApiAdapter>().Use<DockerApiAdapter>().Singleton();
+            For<IContainerFactory>().Use<ContainerFactory>().Singleton();
+            For<IDockerContainerRepository>().Use<DockerContainerRepository>().Singleton();
+            For<IDockerClientFactory>().Use<DockerClientFactory>().Singleton();
+
+            For<DockerizedContext>().AlwaysUnique();
         }
     }
 }

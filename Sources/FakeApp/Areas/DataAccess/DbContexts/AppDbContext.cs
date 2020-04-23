@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Mmu.Mlh.DockerExtensions.FakeApp.Areas.DataAccess.DataModels;
 
-namespace Mmu.Mlh.DockerExtensions.FakeApp.Areas.DataAccess
+namespace Mmu.Mlh.DockerExtensions.FakeApp.Areas.DataAccess.DbContexts
 {
     public class AppDbContext : DbContext
     {
