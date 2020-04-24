@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using Docker.DotNet.Models;
 using Mmu.Mlh.LanguageExtensions.Areas.Types.Maybes;
 
-namespace Mmu.Mlh.DockerExtensions.Areas.Containers.Managemnet.Services.Servants.Implementation
+namespace Mmu.Mlh.DockerExtensions.Areas.Containers.Management.Services.Servants.Implementation
 {
     internal class DockerContainerRepository : IDockerContainerRepository
     {

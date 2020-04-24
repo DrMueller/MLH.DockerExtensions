@@ -1,6 +1,6 @@
 ﻿using Docker.DotNet;
 
-namespace Mmu.Mlh.DockerExtensions.Areas.Containers.Managemnet.Services.Servants
+namespace Mmu.Mlh.DockerExtensions.Areas.Containers.Management.Services.Servants
 {
     internal interface IDockerClientFactory
     {

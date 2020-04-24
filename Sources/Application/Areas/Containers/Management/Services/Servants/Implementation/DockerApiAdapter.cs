@@ -4,7 +4,7 @@ using Docker.DotNet.Models;
 using Mmu.Mlh.DockerExtensions.Areas.Containers.Configurations;
 using Mmu.Mlh.DockerExtensions.Areas.Containers.Configurations.Ports;
 
-namespace Mmu.Mlh.DockerExtensions.Areas.Containers.Managemnet.Services.Servants.Implementation
+namespace Mmu.Mlh.DockerExtensions.Areas.Containers.Management.Services.Servants.Implementation
 {
     internal class DockerApiAdapter : IDockerApiAdapter
     {

@@ -2,7 +2,7 @@
 using JetBrains.Annotations;
 using Mmu.Mlh.LanguageExtensions.Areas.Invariance;
 
-namespace Mmu.Mlh.DockerExtensions.Areas.Containers.Managemnet.Models
+namespace Mmu.Mlh.DockerExtensions.Areas.Containers.Management.Models
 {
     [PublicAPI]
     public class ContainerErrors

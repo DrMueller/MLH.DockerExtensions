@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Mmu.Mlh.DockerExtensions.Areas.Containers.Configurations;
-using Mmu.Mlh.DockerExtensions.Areas.Containers.Managemnet.Models;
-using Mmu.Mlh.DockerExtensions.Areas.Containers.Managemnet.Services;
+using Mmu.Mlh.DockerExtensions.Areas.Containers.Management.Models;
+using Mmu.Mlh.DockerExtensions.Areas.Containers.Management.Services;
 
 namespace Mmu.Mlh.DockerExtensions.Areas.Containers.Contexts.Models.Implementation
 {

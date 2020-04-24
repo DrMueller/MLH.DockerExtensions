@@ -1,10 +1,10 @@
 ﻿using Mmu.Mlh.DockerExtensions.Areas.Containers.Contexts.Factories;
 using Mmu.Mlh.DockerExtensions.Areas.Containers.Contexts.Factories.Implementation;
 using Mmu.Mlh.DockerExtensions.Areas.Containers.Contexts.Models.Implementation;
-using Mmu.Mlh.DockerExtensions.Areas.Containers.Managemnet.Services;
-using Mmu.Mlh.DockerExtensions.Areas.Containers.Managemnet.Services.Implementation;
-using Mmu.Mlh.DockerExtensions.Areas.Containers.Managemnet.Services.Servants;
-using Mmu.Mlh.DockerExtensions.Areas.Containers.Managemnet.Services.Servants.Implementation;
+using Mmu.Mlh.DockerExtensions.Areas.Containers.Management.Services;
+using Mmu.Mlh.DockerExtensions.Areas.Containers.Management.Services.Implementation;
+using Mmu.Mlh.DockerExtensions.Areas.Containers.Management.Services.Servants;
+using Mmu.Mlh.DockerExtensions.Areas.Containers.Management.Services.Servants.Implementation;
 using StructureMap;
 
 namespace Mmu.Mlh.DockerExtensions.Infrastructure.DependencyInjection

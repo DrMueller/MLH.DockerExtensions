@@ -2,7 +2,7 @@
 using Docker.DotNet.Models;
 using Mmu.Mlh.DockerExtensions.Areas.Containers.Configurations;
 
-namespace Mmu.Mlh.DockerExtensions.Areas.Containers.Managemnet.Services.Servants
+namespace Mmu.Mlh.DockerExtensions.Areas.Containers.Management.Services.Servants
 {
     internal interface IDockerApiAdapter
     {

@@ -2,11 +2,11 @@
 using System.Linq;
 using System.Threading.Tasks;
 using Docker.DotNet.Models;
-using Mmu.Mlh.DockerExtensions.Areas.Containers.Managemnet.Models;
-using Mmu.Mlh.DockerExtensions.Areas.Containers.Managemnet.Services.Servants;
+using Mmu.Mlh.DockerExtensions.Areas.Containers.Management.Models;
+using Mmu.Mlh.DockerExtensions.Areas.Containers.Management.Services.Servants;
 using Mmu.Mlh.LanguageExtensions.Areas.Types.Eithers;
 
-namespace Mmu.Mlh.DockerExtensions.Areas.Containers.Managemnet.Services.Implementation
+namespace Mmu.Mlh.DockerExtensions.Areas.Containers.Management.Services.Implementation
 {
     internal class ContainerStarter : IContainerStarter
     {

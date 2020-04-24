@@ -1,7 +1,7 @@
 ﻿using System;
 using Docker.DotNet;
 
-namespace Mmu.Mlh.DockerExtensions.Areas.Containers.Managemnet.Services.Servants.Implementation
+namespace Mmu.Mlh.DockerExtensions.Areas.Containers.Management.Services.Servants.Implementation
 {
     internal class DockerClientFactory : IDockerClientFactory
     {
