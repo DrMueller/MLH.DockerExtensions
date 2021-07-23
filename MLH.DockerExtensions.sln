@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mmu.Mlh.DockerExtensions.Fa
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mmu.Mlh.DockerExtensions", "Sources\Application\Mmu.Mlh.DockerExtensions.csproj", "{C69646D2-D344-4E77-96BD-726A782FA33C}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mmu.Mlh.DockerExtensions.DatabaseTests", "Sources\DatabaseTests\Mmu.Mlh.DockerExtensions.DatabaseTests.csproj", "{49F74515-AC15-47E7-BF1F-7811CC344CC2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{C69646D2-D344-4E77-96BD-726A782FA33C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C69646D2-D344-4E77-96BD-726A782FA33C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C69646D2-D344-4E77-96BD-726A782FA33C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{49F74515-AC15-47E7-BF1F-7811CC344CC2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{49F74515-AC15-47E7-BF1F-7811CC344CC2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{49F74515-AC15-47E7-BF1F-7811CC344CC2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{49F74515-AC15-47E7-BF1F-7811CC344CC2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

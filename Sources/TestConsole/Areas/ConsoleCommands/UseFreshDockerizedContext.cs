@@ -25,8 +25,12 @@ namespace Mmu.Mlh.DockerExtensions.TestConsole.Areas.ConsoleCommands
 
         public async Task ExecuteAsync()
         {
-            var context = _dockerizedContextFactory.Create(new SqlServer2017Latest());
+            var config = new SqlServer2017Latest();
+            var connectionString =config.CreateConnectionString();
+            _consoleWriter.WriteLine(connectionString);
 
+            var context = _dockerizedContextFactory.Create(config);
+            
             await context.ExecuteAsync(
                 container =>
                 {

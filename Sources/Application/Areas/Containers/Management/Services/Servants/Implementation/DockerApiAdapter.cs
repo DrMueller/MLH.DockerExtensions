@@ -17,24 +17,30 @@ namespace Mmu.Mlh.DockerExtensions.Areas.Containers.Management.Services.Servants
 
         public IDictionary<string, EmptyStruct> AdaptExposedPorts(IReadOnlyCollection<Configurations.Ports.PortBinding> ports)
         {
-            return ports.ToDictionary(f => f.ContainerPort.CompleteIdentifier, f => default(EmptyStruct));
+            var result = ports.ToDictionary(f => f.ContainerPort.CompleteIdentifier, f => default(EmptyStruct));
+
+            return result;
         }
 
         public IDictionary<string, IList<Docker.DotNet.Models.PortBinding>> AdaptPortBindings(IReadOnlyCollection<Configurations.Ports.PortBinding> ports)
         {
-            return ports.ToDictionary(
+            var result = ports.ToDictionary(
                 f => f.ContainerPort.CompleteIdentifier,
                 f => AdaptPortBindings(f.HostPorts));
+
+            return result;
         }
 
         private static IList<Docker.DotNet.Models.PortBinding> AdaptPortBindings(IReadOnlyCollection<HostPort> hostPorts)
         {
-            return hostPorts.Select(
+            var result = hostPorts.Select(
                 hp => new Docker.DotNet.Models.PortBinding
                 {
                     HostIP = hp.HostIp,
                     HostPort = hp.PortNumber.ToString()
                 }).ToList();
+
+            return result;
         }
     }
 }

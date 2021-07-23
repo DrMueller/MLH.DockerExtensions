@@ -11,7 +11,7 @@ namespace Mmu.Mlh.DockerExtensions.Areas.Containers.Configurations.KnownConfigur
         private const string SaPassword = "sTronkpassword54322!";
         private readonly int _hostPort;
 
-        public SqlServer2017Latest(int hostPort = 1433, string containerName = "SQLServer2017")
+        public SqlServer2017Latest(int hostPort = 1437, string containerName = "SQLServer2017")
         {
             ContainerName = containerName;
             _hostPort = hostPort;

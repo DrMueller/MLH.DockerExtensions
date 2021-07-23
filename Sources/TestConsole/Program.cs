@@ -8,8 +8,8 @@ namespace Mmu.Mlh.DockerExtensions.TestConsole
     {
         public static void Main()
         {
-            var containerConfig = ContainerConfiguration.CreateFromAssembly(typeof(Program).Assembly, logInitialization: true);
-            var container = ContainerInitializationService.CreateInitializedContainer(containerConfig);
+            var containerConfig = ContainerConfiguration.CreateFromAssembly(typeof(Program).Assembly);
+            var container = ServiceProvisioningInitializer.CreateContainer(containerConfig);
             container
                 .GetInstance<IConsoleCommandsStartupService>()
                 .Start();

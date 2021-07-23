@@ -1,9 +1,9 @@
-﻿using Mmu.Mlh.ConsoleExtensions.Areas.Commands.Models;
-using StructureMap;
+﻿using Lamar;
+using Mmu.Mlh.ConsoleExtensions.Areas.Commands.Models;
 
 namespace Mmu.Mlh.DockerExtensions.TestConsole.Infrastructure.DependencyInjection
 {
-    public class TestConsoleRegistry : Registry
+    public class TestConsoleRegistry : ServiceRegistry
     {
         public TestConsoleRegistry()
         {

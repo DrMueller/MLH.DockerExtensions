@@ -8,8 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Mmu.Mlh.ConsoleExtensions" Version="1.1.1" />
-    <PackageReference Include="Mmu.Mlh.LanguageExtensions" Version="2.3.20" />
+    <PackageReference Include="Mmu.Mlh.ConsoleExtensions" Version="1.1.2" />
   </ItemGroup>
 
   <ItemGroup>

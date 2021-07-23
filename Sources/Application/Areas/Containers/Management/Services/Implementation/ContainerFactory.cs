@@ -30,6 +30,8 @@ namespace Mmu.Mlh.DockerExtensions.Areas.Containers.Management.Services.Implemen
         {
             var existingRepo = await _containerRepo.FindByNameAsync(containerConfig.ContainerName);
 
+            await CreateImageAndContainerAsync(containerConfig);
+
             var containerResult = await existingRepo.Evaluate(
                 resp => Task.FromResult<Either<ContainerErrors, CreatedContainer>>(new CreatedContainer(resp.ID)),
                 whenNone: async () => await CreateImageAndContainerAsync(containerConfig));
