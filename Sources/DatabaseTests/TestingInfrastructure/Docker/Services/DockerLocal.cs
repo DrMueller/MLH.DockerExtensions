@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Docker.DotNet;
 using Docker.DotNet.Models;
@@ -25,18 +24,22 @@ namespace Mmu.Mlh.DockerExtensions.DatabaseTests.TestingInfrastructure.Docker.Se
 
             var containers = await client.Containers.ListContainersAsync(new ContainersListParameters { All = true });
             var existingContainer = containers.SingleOrDefault(f => f.Names.Contains("/" + ContainerName));
-            
+
             if (existingContainer != null)
             {
-                await client.Containers.StopContainerAsync(existingContainer.ID, new ContainerStopParameters
-                {
-                    WaitBeforeKillSeconds = 60
-                });
+                await client.Containers.StopContainerAsync(
+                    existingContainer.ID,
+                    new ContainerStopParameters
+                    {
+                        WaitBeforeKillSeconds = 60
+                    });
 
-                await client.Containers.RemoveContainerAsync(existingContainer.ID, new ContainerRemoveParameters
-                {
-                    Force = true
-                });
+                await client.Containers.RemoveContainerAsync(
+                    existingContainer.ID,
+                    new ContainerRemoveParameters
+                    {
+                        Force = true
+                    });
             }
 
             var envVariables = new List<string>

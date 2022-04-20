@@ -18,7 +18,7 @@ namespace Mmu.Mlh.DockerExtensions.Areas.Containers.Configurations.Ports
         {
             get
             {
-                var ip = HostIp.Reduce("127.0.0.1");
+                var ip = HostIp.Reduce(() => "127.0.0.1");
                 return $"{ip},{PortNumber}";
             }
         }

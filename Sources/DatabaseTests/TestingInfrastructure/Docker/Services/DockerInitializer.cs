@@ -32,9 +32,9 @@ namespace Mmu.Mlh.DockerExtensions.DatabaseTests.TestingInfrastructure.Docker.Se
         private static async Task WaitUntilDatabaseAvailableAsync(string connectionString)
         {
             var start = DateTime.UtcNow;
-            const int maxWaitTimeSeconds = 60;
+            const int MaxWaitTimeSeconds = 60;
             var connectionEstablised = false;
-            while (!connectionEstablised && start.AddSeconds(maxWaitTimeSeconds) > DateTime.UtcNow)
+            while (!connectionEstablised && start.AddSeconds(MaxWaitTimeSeconds) > DateTime.UtcNow)
             {
                 try
                 {

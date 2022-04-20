@@ -30,11 +30,9 @@ namespace Mmu.Mlh.DockerExtensions.Areas.Containers.Management.Services.Implemen
         {
             var existingRepo = await _containerRepo.FindByNameAsync(containerConfig.ContainerName);
 
-            await CreateImageAndContainerAsync(containerConfig);
-
-            var containerResult = await existingRepo.Evaluate(
-                resp => Task.FromResult<Either<ContainerErrors, CreatedContainer>>(new CreatedContainer(resp.ID)),
-                whenNone: async () => await CreateImageAndContainerAsync(containerConfig));
+            var containerResult = await existingRepo
+                .Map(f => Task.FromResult<Either<ContainerErrors, CreatedContainer>>(new CreatedContainer(f.ID)))
+                .Reduce(() => CreateImageAndContainerAsync(containerConfig));
 
             return containerResult;
         }
@@ -74,18 +72,16 @@ namespace Mmu.Mlh.DockerExtensions.Areas.Containers.Management.Services.Implemen
 
         private async Task<Either<ContainerErrors, CreatedContainer>> CreateImageAndContainerAsync(IContainerConfiguration containerConfig)
         {
-            using (var client = _clientFactory.Create())
+            using var client = _clientFactory.Create();
+            await CreateImageAsync(client, containerConfig);
+
+            var createContainerResponse = await CreateContainerAsync(client, containerConfig);
+            if (createContainerResponse.Warnings.Any())
             {
-                await CreateImageAsync(client, containerConfig);
-
-                var createContainerResponse = await CreateContainerAsync(client, containerConfig);
-                if (createContainerResponse.Warnings.Any())
-                {
-                    return new ContainerErrors(createContainerResponse.Warnings.ToArray());
-                }
-
-                return new CreatedContainer(createContainerResponse.ID);
+                return new ContainerErrors(createContainerResponse.Warnings.ToArray());
             }
+
+            return new CreatedContainer(createContainerResponse.ID);
         }
     }
 }
