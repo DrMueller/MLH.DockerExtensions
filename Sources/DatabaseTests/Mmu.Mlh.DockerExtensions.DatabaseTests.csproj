@@ -17,10 +17,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="TestingInfrastructure\DependencyInjection\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\FakeApp\Mmu.Mlh.DockerExtensions.FakeApp.csproj" />
   </ItemGroup>
 

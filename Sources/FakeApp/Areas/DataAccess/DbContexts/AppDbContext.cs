@@ -7,7 +7,7 @@ namespace Mmu.Mlh.DockerExtensions.FakeApp.Areas.DataAccess.DbContexts
     [PublicAPI]
     public class AppDbContext : DbContext
     {
-        public AppDbContext(DbContextOptions<AppDbContext> options)
+        public AppDbContext(DbContextOptions options)
             : base(options)
         {
         }
