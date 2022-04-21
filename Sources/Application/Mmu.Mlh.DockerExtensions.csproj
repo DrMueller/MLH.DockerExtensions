@@ -20,6 +20,7 @@
 
   <ItemGroup>
     <PackageReference Include="Docker.DotNet" Version="3.125.4" />
+    <PackageReference Include="Mmu.Mlh.LanguageExtensions" Version="2.4.9" />
     <PackageReference Include="Mmu.Mlh.ServiceProvisioning" Version="2.1.5" />
   </ItemGroup>
 

@@ -12,8 +12,8 @@ namespace Mmu.Mlh.DockerExtensions.DatabaseTests.TestingInfrastructure.Dependenc
                     cfg.Scan(
                         scanner =>
                         {
-                            scanner.AssembliesFromApplicationBaseDirectory();
-                            scanner.LookForRegistries();
+                            scanner.AssemblyContainingType(typeof(TestContainerFactory));
+                            scanner.WithDefaultConventions();
                         });
                 });
         }

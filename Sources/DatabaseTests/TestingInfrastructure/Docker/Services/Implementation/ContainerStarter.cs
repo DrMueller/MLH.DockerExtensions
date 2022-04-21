@@ -6,6 +6,7 @@ using Docker.DotNet;
 using Docker.DotNet.Models;
 using JetBrains.Annotations;
 using Mmu.Mlh.DockerExtensions.DatabaseTests.TestingInfrastructure.Docker.Services.Servants;
+using Mmu.Mlh.LanguageExtensions.Areas.Types.Maybes;
 
 namespace Mmu.Mlh.DockerExtensions.DatabaseTests.TestingInfrastructure.Docker.Services.Implementation
 {
@@ -27,7 +28,7 @@ namespace Mmu.Mlh.DockerExtensions.DatabaseTests.TestingInfrastructure.Docker.Se
         {
             var existingContainerResult = await _containerFinder.TryFindingIdByNameAsync(DockerConstants.ContainerName);
 
-            return existingContainerResult.Reduce(SetupContainerAsync);
+            return await existingContainerResult.ReduceAsync(SetupContainerAsync);
         }
 
         private async Task<string> SetupContainerAsync()

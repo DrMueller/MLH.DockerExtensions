@@ -2,9 +2,9 @@
 using JetBrains.Annotations;
 using Lamar;
 using Microsoft.EntityFrameworkCore;
+using Mmu.Mlh.DockerExtensions.DatabaseTests.TestingInfrastructure.DbContexts;
 using Mmu.Mlh.DockerExtensions.DatabaseTests.TestingInfrastructure.DependencyInjection;
 using Mmu.Mlh.DockerExtensions.DatabaseTests.TestingInfrastructure.Docker.Services;
-using Mmu.Mlh.DockerExtensions.FakeApp.Areas.DataAccess.DbContexts;
 using Xunit;
 
 namespace Mmu.Mlh.DockerExtensions.DatabaseTests.TestingInfrastructure.Fixtures
@@ -16,17 +16,15 @@ namespace Mmu.Mlh.DockerExtensions.DatabaseTests.TestingInfrastructure.Fixtures
 
         internal IContainer LamarContainer { get; private set; }
 
-        public Task DisposeAsync()
+        public async Task DisposeAsync()
         {
             if (!string.IsNullOrEmpty(_dockerContainerId))
             {
                 var dockerContainerRemover = LamarContainer.GetInstance<IContainerRemover>();
-                Task.WaitAll(dockerContainerRemover.RemoveContainerAsync(_dockerContainerId));
+                await dockerContainerRemover.RemoveContainerAsync(_dockerContainerId);
             }
 
             LamarContainer?.Dispose();
-
-            return Task.CompletedTask;
         }
 
         public async Task InitializeAsync()
@@ -38,9 +36,12 @@ namespace Mmu.Mlh.DockerExtensions.DatabaseTests.TestingInfrastructure.Fixtures
             await MigrateDatabaseAsync();
         }
 
-        private static async Task MigrateDatabaseAsync()
+        private async Task MigrateDatabaseAsync()
         {
-            var dbContxt = new AppDbContext();
+            var dbContxt = LamarContainer
+                .GetInstance<IDockerizedAppDbContextFactory>()
+                .Create();
+
             await dbContxt.Database.MigrateAsync();
         }
 

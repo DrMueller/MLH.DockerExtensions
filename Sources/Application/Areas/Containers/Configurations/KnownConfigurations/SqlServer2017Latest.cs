@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Mmu.Mlh.DockerExtensions.Areas.Containers.Configurations.Ports;
-using Mmu.Mlh.LanguageExtensions.Areas.Types.Maybes;
 
 namespace Mmu.Mlh.DockerExtensions.Areas.Containers.Configurations.KnownConfigurations
 {
@@ -31,7 +30,7 @@ namespace Mmu.Mlh.DockerExtensions.Areas.Containers.Configurations.KnownConfigur
         public PortConfiguration PortConfiguration => new PortConfiguration(
             new PortBinding(
                 new ContainerPort(ContainerPort, ContainerPortProcotol.Tcp),
-                new HostPort(_hostPort, Maybe.CreateSome("127.0.0.1"))));
+                new HostPort(_hostPort, "127.0.0.1")));
 
         public string CreateConnectionString()
         {

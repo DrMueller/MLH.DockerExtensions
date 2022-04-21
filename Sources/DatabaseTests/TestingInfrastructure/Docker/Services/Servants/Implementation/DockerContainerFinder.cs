@@ -2,7 +2,6 @@
 using System.Threading.Tasks;
 using Docker.DotNet.Models;
 using JetBrains.Annotations;
-using Mmu.Mlh.LanguageExtensions.Areas.Types.FunctionsResults;
 using Mmu.Mlh.LanguageExtensions.Areas.Types.Maybes;
 
 namespace Mmu.Mlh.DockerExtensions.DatabaseTests.TestingInfrastructure.Docker.Services.Servants.Implementation
@@ -24,7 +23,9 @@ namespace Mmu.Mlh.DockerExtensions.DatabaseTests.TestingInfrastructure.Docker.Se
             var containers = await client.Containers.ListContainersAsync(new ContainersListParameters { All = true });
             var existingContainer = containers.SingleOrDefault(f => f.Names.Contains("/" + namepart));
 
-            return existingContainer?.ID;
+            return existingContainer == null
+                ? Maybe.CreateNone<string>()
+                : existingContainer.ID;
         }
     }
 }

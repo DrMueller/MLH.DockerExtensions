@@ -5,25 +5,20 @@ namespace Mmu.Mlh.DockerExtensions.Areas.Containers.Configurations.Ports
 {
     public class HostPort
     {
-        public HostPort(int portNumber, Maybe<string> hostIp)
+        public const string DefaultHostIp = "127.0.0.1";
+
+        public HostPort(int portNumber, Maybe<string> possibleIp)
         {
             Guard.That(() => portNumber > 0, "Port number not set.");
-            Guard.ObjectNotNull(() => hostIp);
+            Guard.ObjectNotNull(() => possibleIp);
 
             PortNumber = portNumber;
-            HostIp = hostIp;
+            HostIp = possibleIp.Reduce(() => DefaultHostIp);
         }
 
-        public string CompleteHost
-        {
-            get
-            {
-                var ip = HostIp.Reduce(() => "127.0.0.1");
-                return $"{ip},{PortNumber}";
-            }
-        }
+        public string CompleteHost => $"{HostIp},{PortNumber}";
 
-        public Maybe<string> HostIp { get; }
+        public string HostIp { get; }
         public int PortNumber { get; }
     }
 }
