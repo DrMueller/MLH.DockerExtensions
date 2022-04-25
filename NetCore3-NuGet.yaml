@@ -23,6 +23,12 @@ jobs:
   steps:
   - checkout: self
   - checkout: ALMStuff
+  - task: Docker@2
+    displayName: "Start SQL Server Container"
+    inputs:
+      containerRegistry: DockerHub
+      command: run
+      arguments: '-e "ACCEPT_EULA=Y" -e "SA_PASSWORD=sTronkpassword54322!" -p 1437:1433 --name SQLServer2017 -d mcr.microsoft.com/mssql/server:2017-latest'
   - template: AzureDevOps/BuildTemplates/NetCore/Steps/Initialize_And_Test.yaml@ALMStuff
     parameters:
       BuildConfiguration: $(BuildConfiguration)
