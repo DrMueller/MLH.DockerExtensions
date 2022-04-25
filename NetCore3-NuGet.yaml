@@ -37,7 +37,13 @@ jobs:
           key: ResharperCLT
           path: $(Build.SourcesDirectory)/Lib/Resharper
           cacheHitVar: ReSharperCLTCacheRestored
-
+      - task: NuGetCommand@2
+        displayName: "Restore ReSharper CLT NuGet"
+        inputs:
+          command: custom
+          arguments: "install JetBrains.ReSharper.CommandLineTools -source https://api.nuget.org/v3/index.json -Version 2021.2.0 -OutputDirectory $(Build.SourcesDirectory)/Lib/Resharper"
+        condition: ne(variables.ReSharperCLTCacheRestored, 'true')
+        
       - powershell: |
           $sourceReSharperFilePath = "$(Build.SourcesDirectory)/ALMStuff/ServerDevelopment/Frameworks/ReSharper/CI/$(ReSharperSettingsFileName)"
           $origFile = "$(Build.SourcesDirectory)/$(ApplicationSubPath)/$(SolutionName).DotSettings"
