@@ -2,10 +2,9 @@ name: 1.2$(rev:.r) # build numbering format
 
 variables:
   BuildConfiguration: "Release"
-  FolderToPack: "Application"
   SolutionName: "MLH.DockerExtensions.sln"
-  ApplicationSubPath: "MLH.DockerExtensions"
   ReSharperSettingsFileName: "CISettings_NuGet.DotSettings"
+  ApplicationSubPath: "MLH.DockerExtensions"
   ProjectPath: "$(ApplicationSubPath)/**/*.csproj"
 
 resources:
@@ -23,34 +22,41 @@ jobs:
       name: Azure Pipelines
       vmImage: windows-latest
     steps:
+      - checkout: self
+      - checkout: ALMStuff
       - task: DotNetCoreCLI@2
-        displayName: "Restore project NuGets"
+        displayName: "Restore"
         inputs:
           command: restore
           projects: $(ProjectPath)
+          
       - task: Cache@2
         displayName: Cache ReSharperCLT
         inputs:
           key: ResharperCLT
           path: $(Build.SourcesDirectory)/Lib/Resharper
           cacheHitVar: ReSharperCLTCacheRestored
-      - task: NuGetCommand@2
-        displayName: "Restore ReSharper CLT NuGet"
-        inputs:
-          command: custom
-          arguments: "install JetBrains.ReSharper.CommandLineTools -source https://api.nuget.org/v3/index.json -Version 2021.2.0 -OutputDirectory $(Build.SourcesDirectory)/Lib/Resharper"
-        condition: ne(variables.ReSharperCLTCacheRestored, 'true')
+
+      - powershell: |
+          $sourceReSharperFilePath = "$(Build.SourcesDirectory)/ALMStuff/ServerDevelopment/Frameworks/ReSharper/CI/$(ReSharperSettingsFileName)"
+          $origFile = "$(Build.SourcesDirectory)/$(ApplicationSubPath)/$(SolutionName).DotSettings"
+          Copy-Item -Path "$sourceReSharperFilePath" -Destination "$origFile" -Force -Verbose
+
+
+          displayName: 'Copy relative ReSharper settings'
+
       - task: alanwales.resharper-code-analysis.custom-build-task.ResharperCli@2
         displayName: "Run ReSharper analysis"
         inputs:
-          solutionOrProjectPath: Backend/TriDispo.sln
-          commandLineInterfacePath: $(Build.SourcesDirectory)/Lib/Resharper/JetBrains.ReSharper.CommandLineTools.2021.2.0/tools
+          solutionOrProjectPath: $(ApplicationSubPath)/$(SolutionName)
           additionalArguments: "--no-build"
 
   - job: "BuildAndPublishToNuGet"
     dependsOn: RunResharper
     condition: succeeded()
     displayName: "Build and publish to NuGet"
+    variables:
+      FolderToPack: "Application"
     pool:
       vmImage: ubuntu-latest
     steps:
@@ -63,7 +69,7 @@ jobs:
           projects: $(ProjectPath)
 
       - task: DrMueller2.NuGetVulnerabilityScan.NugetVulnerabilityScanTask.NugetVulnerabilityScanTask@1
-        displayName: NuGet Vulnerability ScanT
+        displayName: NuGet Vulnerability Scan
         inputs:
           projectPath: $(ProjectPath)
 
@@ -86,7 +92,7 @@ jobs:
           command: test
           projects: "$(ApplicationSubPath)/**/*Tests.csproj"
           arguments: "--configuration --configuration $(BuildConfiguration)"
+
       - template: AzureDevOps/BuildTemplates/NetCore/Steps/Pack_And_Publish_To_NuGet.yaml@ALMStuff
         parameters:
           FolderToPack: $(FolderToPack)
-
