@@ -23,18 +23,66 @@ jobs:
   steps:
   - checkout: self
   - checkout: ALMStuff
+  - task: DotNetCoreCLI@2
+    displayName: "Restore"
+    inputs:
+      command: restore
+      projects: "Backend/Sources/**/*.csproj"
+
+  - task: DrMueller2.NuGetVulnerabilityScan.NugetVulnerabilityScanTask.NugetVulnerabilityScanTask@1
+    displayName: NuGet Vulnerability ScanT
+    inputs:
+      projectPath: "**/*.csproj"
+
+  - task: DotNetCoreCLI@2
+    displayName: "Build with warnings as errors"
+    inputs:
+      projects: "Backend/Sources/**/*.csproj"
+      arguments: '/p:TreatWarningsAsErrors="true" --configuration $(BuildConfiguration)'
+
   - task: Docker@2
     displayName: "Start SQL Server Container"
     inputs:
       containerRegistry: DockerHub
       command: run
       arguments: '-e "ACCEPT_EULA=Y" -e "SA_PASSWORD=sTronkpassword54322!" -p 1437:1433 --name SQLServer2017 -d mcr.microsoft.com/mssql/server:2017-latest'
-  - template: AzureDevOps/BuildTemplates/NetCore/Steps/Initialize_And_Test.yaml@ALMStuff
-    parameters:
-      BuildConfiguration: $(BuildConfiguration)
-      SolutionName: $(SolutionName)
-      ApplicationSubPath: $(ApplicationSubPath)
-      ReSharperSettingsFileName: $(ReSharperSettingsFileName)
+
+  - task: DotNetCoreCLI@2
+    displayName: Run Tests
+    inputs:
+      command: test
+      projects: "Backend/Sources/Testing/**/*Tests.csproj"
+      arguments: "--configuration --configuration $(BuildConfiguration)"
   - template: AzureDevOps/BuildTemplates/NetCore/Steps/Pack_And_Publish_To_NuGet.yaml@ALMStuff
     parameters:
       FolderToPack: $(FolderToPack)
+
+  - job: "RunResharper"
+    displayName: "Run ReSharper analysis"
+    pool:
+      name: Azure Pipelines
+      vmImage: windows-latest
+    steps:
+      - task: DotNetCoreCLI@2
+        displayName: "Restore project NuGets"
+        inputs:
+          command: restore
+          projects: "Backend/Sources/**/*.csproj"
+      - task: Cache@2
+        displayName: Cache ReSharperCLT
+        inputs:
+          key: ResharperCLT
+          path: $(Build.SourcesDirectory)/Lib/Resharper
+          cacheHitVar: ReSharperCLTCacheRestored
+      - task: NuGetCommand@2
+        displayName: "Restore ReSharper CLT NuGet"
+        inputs:
+          command: custom
+          arguments: "install JetBrains.ReSharper.CommandLineTools -source https://api.nuget.org/v3/index.json -Version 2021.2.0 -OutputDirectory $(Build.SourcesDirectory)/Lib/Resharper"
+        condition: ne(variables.ReSharperCLTCacheRestored, 'true')
+      - task: alanwales.resharper-code-analysis.custom-build-task.ResharperCli@2
+        displayName: "Run ReSharper analysis"
+        inputs:
+          solutionOrProjectPath: Backend/TriDispo.sln
+          commandLineInterfacePath: $(Build.SourcesDirectory)/Lib/Resharper/JetBrains.ReSharper.CommandLineTools.2021.2.0/tools
+          additionalArguments: "--no-build"
