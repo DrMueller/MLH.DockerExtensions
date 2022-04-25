@@ -1,8 +1,6 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Mmu.Mlh.DockerExtensions.DatabaseTests.TestingInfrastructure.DbContexts;
-using Mmu.Mlh.DockerExtensions.DatabaseTests.TestingInfrastructure.DbContexts.Implementation;
-using Mmu.Mlh.DockerExtensions.DatabaseTests.TestingInfrastructure.Docker.Services;
 using Mmu.Mlh.DockerExtensions.DatabaseTests.TestingInfrastructure.Fixtures;
 using Mmu.Mlh.DockerExtensions.FakeApp.Areas.DataAccess.DataModels;
 using Mmu.Mlh.DockerExtensions.FakeApp.Areas.DataAccess.DbContexts;
@@ -29,7 +27,7 @@ namespace Mmu.Mlh.DockerExtensions.DatabaseTests.TestingAreas
             _sut.Individuals.Add(new IndividualDataModel());
             await _sut.SaveChangesAsync();
 
-            var individualsCount =  await _sut.Individuals.CountAsync();
+            var individualsCount = await _sut.Individuals.CountAsync();
             Assert.Equal(2, individualsCount);
         }
     }
