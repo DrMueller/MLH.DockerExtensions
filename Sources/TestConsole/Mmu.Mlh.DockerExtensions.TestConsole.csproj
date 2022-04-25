@@ -9,6 +9,7 @@
 
   <ItemGroup>
     <PackageReference Include="Mmu.Mlh.ConsoleExtensions" Version="1.1.2" />
+    <PackageReference Include="System.Text.RegularExpressions" Version="4.3.1" />
   </ItemGroup>
 
   <ItemGroup>
