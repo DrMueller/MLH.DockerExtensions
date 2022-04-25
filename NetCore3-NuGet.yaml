@@ -28,8 +28,9 @@ jobs:
         displayName: "Restore"
         inputs:
           command: restore
+          vstsFeed: '3c2d9c9a-d8f7-42f4-b7a3-dddf4064110a'
           projects: $(ProjectPath)
-          
+
       - task: Cache@2
         displayName: Cache ReSharperCLT
         inputs:
@@ -66,6 +67,7 @@ jobs:
         displayName: "Restore"
         inputs:
           command: restore
+          vstsFeed: '3c2d9c9a-d8f7-42f4-b7a3-dddf4064110a'
           projects: $(ProjectPath)
 
       - task: DrMueller2.NuGetVulnerabilityScan.NugetVulnerabilityScanTask.NugetVulnerabilityScanTask@1
