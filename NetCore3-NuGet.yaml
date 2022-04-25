@@ -19,7 +19,7 @@ jobs:
 - job: 'BuildAndPublishToNuGet'
   displayName: 'Build and publish to NuGet'
   pool:
-    vmImage: windows-2022
+    vmImage: ubuntu-latest
   steps:
   - checkout: self
   - checkout: ALMStuff
