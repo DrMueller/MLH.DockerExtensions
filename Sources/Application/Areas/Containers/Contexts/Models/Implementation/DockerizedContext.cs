@@ -35,6 +35,10 @@ namespace Mmu.Mlh.DockerExtensions.Areas.Containers.Contexts.Models.Implementati
 
                 await callback(runningContainer);
             }
+            catch (Exception ex)
+            {
+                throw new Exception("Error during execution of dockerized context: " + ex.Message, ex);
+            }
             finally
             {
                 if (removeContainerAfter)

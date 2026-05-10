@@ -27,7 +27,7 @@ namespace Mmu.Mlh.DockerExtensions.TestConsole.Areas.ConsoleCommands
 
         public async Task ExecuteAsync()
         {
-            var config = new SqlServer2017Latest(1337, "PersistentSqlServer");
+            var config = new SqlServer2022Latest(1337, "PersistentSqlServer");
             var context = _dockerizedContextFactory.Create(config);
 
             await context.ExecuteAsync(
@@ -39,7 +39,7 @@ namespace Mmu.Mlh.DockerExtensions.TestConsole.Areas.ConsoleCommands
                 false);
         }
 
-        private static async Task<AppDbContext> CreateDbContextForContainerAsync(SqlServer2017Latest config)
+        private static async Task<AppDbContext> CreateDbContextForContainerAsync(DatabaseContainerConfiguration config)
         {
             var options = new DbContextOptionsBuilder<AppDbContext>()
                 .UseSqlServer(config.CreateConnectionString())
